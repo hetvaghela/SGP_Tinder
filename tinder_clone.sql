@@ -27,3 +27,4 @@ CREATE TABLE match_request (
 	accepted_date DATETIME NULL,
 	PRIMARY KEY (id)
 );
+
