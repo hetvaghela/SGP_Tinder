@@ -25,6 +25,14 @@ const signUpBtn = document.getElementById("signup__btn");
 // get login button.
 const loginBtn = document.getElementById("login__submit-btn");
 
+const config = {
+  CometChatAppId: "23585873254a5621",
+  CometChatRegion: "US",
+  CometChatAuthKey: "2e2402cb50d3d4075102eb94fb3588631d4eb1da",
+  CometChatAPIKey: "5f6ce9c74ba353c945bae74288d134c34450a4ff"
+};
+
+
 /**
  * hide sing up modal.
  */
@@ -245,6 +253,7 @@ if (loginBtn) {
       axios
         .post("/login", { email, password })
         .then((res) => {
+          debugger;
           if (res && res.data && res.data.uid) {
             const appSetting = new CometChat.AppSettingsBuilder()
               .subscribePresenceForAllUsers()
@@ -276,6 +285,7 @@ if (loginBtn) {
 
         })
         .catch((error) => {
+          console.log(error);
           if (error) {
             hideLoading();
             alert("Your user name or password is not correct");

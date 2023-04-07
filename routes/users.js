@@ -56,6 +56,7 @@ module.exports = function ({ app, dbConn, upload, constants }) {
   app.post('/users/recommend', (req, res) => {
     const { gender, ccUid } = req.body;
     if (gender && ccUid) {
+      console.log(gender, ccUid);
       const sql = "SELECT * FROM user_account WHERE user_gender = ? AND (user_cometchat_uid NOT IN (SELECT match_request_to FROM match_request WHERE match_request_from = ?) AND user_cometchat_uid NOT IN (SELECT match_request_from FROM match_request WHERE match_request_to = ? AND match_request_status = ?))";
       dbConn.query(sql, [gender, ccUid, ccUid, constants.matchRequestStatus.accepted], function (err, result) {
         if (err) {

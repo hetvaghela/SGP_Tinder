@@ -19,5 +19,9 @@
     "multer": "^1.4.3",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.13"
+  },
+  "devDependencies": {
+    "@types/node": "^18.15.10",
+    "tslib": "^2.5.0"
   }
 }

@@ -1,3 +1,9 @@
+const config = {
+  CometChatAppId: "23585873254a5621",
+  CometChatRegion: "US",
+  CometChatAuthKey: "2e2402cb50d3d4075102eb94fb3588631d4eb1da",
+  CometChatAPIKey: "5f6ce9c74ba353c945bae74288d134c34450a4ff"
+};
 window.addEventListener("DOMContentLoaded", function () {
   // hide loading indicator.
   hideLoading();
@@ -346,6 +352,7 @@ window.addEventListener("DOMContentLoaded", function () {
     };
 
     const loadFriends = () => {
+      debugger
       const appSetting = new CometChat.AppSettingsBuilder()
         .subscribePresenceForAllUsers()
         .setRegion(config.CometChatRegion)
@@ -410,6 +417,7 @@ window.addEventListener("DOMContentLoaded", function () {
           matchRequestTo,
           matchRequestReceiver
         }).then(res => {
+          debugger;
           if (res && res.data && res.data.match_request_status && res.data.match_request_status === 1) {
             addFriend(authenticatedUser.uid, matchRequestTo, matchRequestReceiver);
           }
@@ -506,6 +514,7 @@ window.addEventListener("DOMContentLoaded", function () {
     };
 
     const addFriend = (matchRequestFrom, matchRequestTo, matchRequestReceiver) => {
+      debugger
       if (matchRequestFrom && matchRequestTo) {
         const url = `https://${config.CometChatAppId}.api-${config.CometChatRegion}.cometchat.io/v3.0/users/${matchRequestTo}/friends`;
         axios.post(url, { accepted: [matchRequestFrom] }, {
@@ -534,13 +543,18 @@ window.addEventListener("DOMContentLoaded", function () {
       logoutButon.addEventListener("click", function () {
         const isLeaved = confirm("Do you want to log out?");
         if (isLeaved) {
+          debugger;
           // logout from cometchat and then clear storage.
-          CometChat.logout().then((response) => {
-            // User successfully logged out.
-            // Perform any clean up if required.
-            localStorage.removeItem("auth");
+          localStorage.removeItem("auth");
             // redirect to login page.
             window.location.href = "/login.html";
+          CometChat.logout().then((response) => {
+            // User successfully logged out.
+            debugger;
+            // Perform any clean up if required.
+            
+          }).catch((e)=>{
+            console.log(e);
           });
         }
       });
